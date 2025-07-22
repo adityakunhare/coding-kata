@@ -1,33 +1,33 @@
 <?php
 
 use App\PrimeFactors;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class PrimeFactorTest extends TestCase
 {
 
-	public function test_it_generates_prime_factors_for_1()
+	#[DataProvider('factors')]
+	public function test_it_generates_prime_factors_for_1($input, $expected)
 	{
 		$factors = new PrimeFactors;
-		$this->assertEquals([], $factors->generate(1));
+		$this->assertEquals($expected, $factors->generate($input));
 	}
 
-	public function test_it_generates_prime_factors_for_2()
-	{
-		$factors = new PrimeFactors;
-		$this->assertEquals([2], $factors->generate(2));
-	}
 
-	public function test_it_generates_prime_factors_for_3()
+	public static function factors()
 	{
-		$factors = new PrimeFactors;
-
-		$this->assertEquals([3], $factors->generate(3));
-	}
-	
-	public function test_it_generates_prime_factors_for_4()
-	{
-		$factors = new PrimeFactors;
-		$this->assertEquals([4], $factors->generate(4));
+		return [
+			[1, []],
+			[2, [2]],
+			[3, [3]],
+			[4, [2,2]],
+			[5, [5]],
+			[6, [2,3]],
+			[8, [2,2,2]],
+			[9, [3,3]],
+			[100, [2,2,5,5]],
+			[1000, [2,2,2,5,5,5]],
+		];	
 	}
 }
